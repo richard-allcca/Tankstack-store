@@ -2,7 +2,7 @@ import { Button, Image, Input, Textarea } from "@nextui-org/react";
 
 export const NewProduct = () => {
 
-  
+
 
   return (
     <div className="w-full flex-col">
@@ -11,7 +11,7 @@ export const NewProduct = () => {
       <form className="w-full">
 
         <div className="flex justify-around items-center">
-          
+
           <div className="flex-col w-[500px]">
 
             <Input className="mt-2" type="text" label="Titulo del producto" />
@@ -38,7 +38,7 @@ export const NewProduct = () => {
               src="https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg"
             />
           </div>
-          
+
         </div>
 
 
