@@ -2,6 +2,8 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+> This project depends on having the 04-fake-api up and running. You can start it with `npm run start` in the 04-fake-api repository.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
@@ -25,3 +27,73 @@ If you are developing a production application, we recommend updating the config
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+## Documentation
+
+- [TankStack Query](https://tanstack.com/query/latest/)
+
+## Instalación de TanStack Query
+
+Primero instalamos el paquete de React Query:
+
+```bash
+npm install @tanstack/react-query
+```
+
+Luego creamos un archivo `src/plugin/TanStackQuery.tsx` con el siguiente contenido:
+
+```ts
+const TanStackProvider = ({ children }: PropsWithChildren) => {
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        {children}
+      </QueryClientProvider>
+    </>
+  )
+}
+export default TanStackProvider
+```
+
+Luego lo importamos en el `src/main.tsx`:
+
+```ts
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <TanStackProvider>
+      <NextUIProvider>
+        <main className="dark text-foreground bg-background">
+          <RouterProvider router={ router } />
+        </main>
+      </NextUIProvider>
+    </TanStackProvider>
+  </React.StrictMode>,
+)
+```
+
+Segundo paso, instalar las devtools de react query
+
+```bash
+npm install @tanstack/react-query-devtools
+```
+
+Luego lo importamos en el `src/plugin/TanStackQuery.tsx`:
+
+```ts
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+const queryClient = new QueryClient()
+
+const TanStackProvider = ({ children }: PropsWithChildren) => {
+  return (
+    <>
+      <QueryClientProvider client={queryClient}>
+        {children}
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </>
+  )
+}
+export default TanStackProvider
+```
