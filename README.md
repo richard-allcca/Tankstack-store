@@ -97,3 +97,33 @@ const TanStackProvider = ({ children }: PropsWithChildren) => {
 }
 export default TanStackProvider
 ```
+
+## React query mutations
+
+Para realizar una mutación con React Query, primero debes definir una función que realice la mutación. Luego, puedes usar el hook `useMutation` para ejecutar esa función. Aquí tienes un ejemplo básico:
+
+- [React query mutations](https://tanstack.com/query/latest/docs/framework/react/guides/mutations)
+
+```tsx
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+
+const createProduct = async (product: FormInputs) => {
+  const response = await axios.post('/api/products', product)
+  return response.data
+}
+
+const NewProduct = () => {
+  const mutation = useMutation(createProduct)
+
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    mutation.mutate(data)
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      {/* Form fields go here */}
+    </form>
+  )
+}
+```
